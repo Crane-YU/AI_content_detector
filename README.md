@@ -62,14 +62,28 @@ sh build_and_push_lambda.sh
 ```
 
 ### Requirement #5
-For model training on SageMaker, please take a look at ```ai_detection/pipeline_train.py```.
-
-There are some bugs using SageMaker to depoly the endpoint, so I use serverless deployment with AWS Lambda as a BACKUP for model deployment and hosting (```handler.py```).
-
+For model training and registry and hosting on SageMaker, please run: 
+ ```bash
+cd ai_detection
+python pipeline_train.py
+```
 
 ### Requirement #6
-Currently I use AWS Lambda and create an endpoint to check the service: https://tls6grkoj4ltb37gbyjmdo3nsy0lamax.lambda-url.ap-southeast-2.on.aws/
-There are some bugs using SageMaker to depoly the endpoint.
+Currently I give two ways for API endpoint generation:
+
+1. Use AWS Lambda serverless inference from Docker image and create an endpoint to check the service: https://tls6grkoj4ltb37gbyjmdo3nsy0lamax.lambda-url.ap-southeast-2.on.aws/
+
+    This way is low-cost but slow to response.
+
+2. Use SageMaker to create an endpoint, please run:
+    ```bash
+    cd ai_detection
+    python step_deploy.py
+    ```
+    I also use AWS Lambda for public access service (to simulate API gateway): https://oxg7c6pr4ckfjoswnkulbah3g40tdzbg.lambda-url.ap-southeast-2.on.aws/
+
+
+    This way is high-cost but fast to response.
 
 ### Requirement #7
 Architecture provision has not been completed.
