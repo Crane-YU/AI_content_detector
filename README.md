@@ -39,7 +39,7 @@ I design the AI content detector by the following steps:
     ```
 
 ### Requirement #3
-Unit tests are implemented for all critical files, including ```data_process.py```, ```model.py```, ```train_roberta.py```, ```utils.py```, and ```app.py```.
+Unit tests are implemented for all critical files, including ```data_process.py```, ```model.py```, ```train.py```, ```utils.py```, and ```app.py```.
 For testing, please run:
 ```bash
 pytest tests
@@ -48,11 +48,23 @@ pytest tests
 ### Requirement #4
 I created 3 docker images for train/inference/lambda, and pushed them to AWS ECR (private repo).
 
+To build and push the docker for SageMaker training, please run:
+ ```bash
+sh build_and_push_train.sh
+```
+To build and push the docker for SageMaker depoylment, please run:
+ ```bash
+sh build_and_push_inference.sh
+```
+To build and push the docker for AWS Lambda, please run:
+ ```bash
+sh build_and_push_lambda.sh
+```
 
 ### Requirement #5
 For model training on SageMaker, please take a look at ```ai_detection/pipeline_train.py```.
 
-There are some bugs using SageMaker to depoly the endpoint, so I use serverless deployment with AWS Lambda as a copy for model deployment and hosting. 
+There are some bugs using SageMaker to depoly the endpoint, so I use serverless deployment with AWS Lambda as a BACKUP for model deployment and hosting (```handler.py```).
 
 
 ### Requirement #6
