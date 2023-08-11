@@ -1,0 +1,36 @@
+FROM public.ecr.aws/lambda/python:3.8.2023.06.12.17-x86_64
+
+RUN yum -y update
+RUN yum -y groupinstall "Development Tools"
+RUN yum -y install python-devel
+RUN yum -y install python-pip
+
+RUN yum install -y blas-devel lapack-devel
+RUN pip install --upgrade pip
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+COPY requirements.txt /tmp
+RUN  pip install --no-cache-dir -r /tmp/requirements.txt
+
+ENV PYTHONUNBUFFERED=TRUE
+ENV PYTHONDONTWRITEBYTECODE=TRUE
+
+COPY app.py ${LAMBDA_TASK_ROOT}
+COPY data_process.py ${LAMBDA_TASK_ROOT}
+COPY model.py ${LAMBDA_TASK_ROOT}
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
+COPY test.py ${LAMBDA_TASK_ROOT}
+COPY build_model.sh ${LAMBDA_TASK_ROOT}
+COPY train_roberta.py ${LAMBDA_TASK_ROOT}
+COPY utils.py ${LAMBDA_TASK_ROOT}
+COPY handler.py ${LAMBDA_TASK_ROOT}
+
+COPY saved_models ${LAMBDA_TASK_ROOT}/saved_models/
+COPY data ${LAMBDA_TASK_ROOT}/data/
+COPY roberta_config ${LAMBDA_TASK_ROOT}/roberta_config/
+COPY templates ${LAMBDA_TASK_ROOT}/templates/
+
+CMD ["handler.lambda_handler"]

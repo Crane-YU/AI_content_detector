@@ -1,0 +1,24 @@
+ARG REGION=ap-southeast-2
+
+# SageMaker PyTorch image
+FROM 763104351884.dkr.ecr.ap-southeast-2.amazonaws.com/pytorch-inference:1.12.1-cpu-py38-ubuntu20.04-sagemaker
+
+ARG SAGEMAKER_ROOT=/opt/ml
+ENV PATH="${SAGEMAKER_ROOT}/code:${PATH}"
+
+COPY saved_models/ ${SAGEMAKER_ROOT}/model/
+COPY requirements.txt ${SAGEMAKER_ROOT}/code/requirements.txt
+RUN pip install -r ${SAGEMAKER_ROOT}/code/requirements.txt
+COPY setup.py ${SAGEMAKER_ROOT}/code/setup.py
+COPY ai_detection ${SAGEMAKER_ROOT}/code/ai_detection
+COPY data_process.py ${SAGEMAKER_ROOT}/code/data_process.py
+COPY model.py ${SAGEMAKER_ROOT}/code/model.py
+COPY utils.py ${SAGEMAKER_ROOT}/code/utils.py
+COPY data ${SAGEMAKER_ROOT}/code/data
+COPY roberta_config ${SAGEMAKER_ROOT}/code/roberta_config
+
+RUN pip install -e ${SAGEMAKER_ROOT}/code
+
+ENV SAGEMAKER_SUBMIT_DIRECTORY ${SAGEMAKER_ROOT}/code
+
+ENV SAGEMAKER_PROGRAM ai_detection.inference

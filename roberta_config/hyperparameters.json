@@ -1,0 +1,11 @@
+{
+    "saved_model_dir": "/opt/ml/model",
+    "datafolder": "data",
+    "output_path": "/opt/ml/model",
+    "epochs": 1,
+    "train_batch_size": 8,
+    "test_batch_size": 8,
+    "lr": 5e-5,
+    "seed": 42,
+    "dropout_rate": 0.3
+}
