@@ -7,7 +7,6 @@ from sagemaker.workflow.pipeline_context import PipelineSession
 from sagemaker.workflow.step_collections import RegisterModel
 from sagemaker.workflow.steps import CreateModelStep, TrainingStep
 
-# from sagemaker.workflow.steps import EndpointConfigStep, CreateEndpointStep
 
 SAGEMAKER_ROLE = "arn:aws:iam::282095691823:role/sagemaker-role"
 
@@ -86,20 +85,6 @@ model_registration_step = RegisterModel(
     approval_status=model_approval_status,
 )
 
-
-# endpoint_config_step = EndpointConfigStep(
-#     'EndpointConfigStep',
-#     endpoint_config_name=sagemaker.workflow.Pipeline().name + '-endpoint-config',
-#     model_name=model_creation_step.properties.ModelName,
-#     initial_instance_count=1,
-#     instance_type='ml.m4.xlarge'
-# )
-
-# create_endpoint_step = CreateEndpointStep(
-#     "CreateEndpointStep",
-#     endpoint_name=sagemaker.workflow.Pipeline().name + '-endpoint',
-#     endpoint_config_name=endpoint_config_step.properties.EndpointConfigName
-# )
 
 
 print("--------------ai-detector-pipeline----------------------")

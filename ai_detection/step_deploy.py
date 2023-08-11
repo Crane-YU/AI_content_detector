@@ -3,8 +3,8 @@ import boto3
 sagemaker_client = boto3.client("sagemaker")
 
 
-endpoint_name = "ai-detector-endpoint-6"
-model_name = "pipelines-3umz2ye0coz6-createmodelstep-klm3o8ujaa"
+endpoint_name = "ai-detector-endpoint-8"
+model_name = "pipelines-3vfdqp8wa7mf-createmodelstep-clqyd4ur99"
 
 
 # Create endpoint configuration

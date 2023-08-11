@@ -69,13 +69,13 @@
 			"response": []
 		},
 		{
-			"name": "computer generated - function url",
+			"name": "human generated - sagemaker - URL",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"text\": \"input with computer\"\n}",
+					"raw": "{\n    \"text\": \"text input with some sample message\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,13 +100,13 @@
 			"response": []
 		},
 		{
-			"name": "computer generated - function url Copy",
+			"name": "computer generated - function url",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"text\": \"input with computer linear regression model\"\n}",
+					"raw": "{\n    \"text\": \"input with computer\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
