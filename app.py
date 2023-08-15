@@ -48,6 +48,8 @@ def predict():
     input_text = request.form["text"]
 
     args = parse_arge()
+    args.saved_model_dir = "./saved_models/"
+    args.output_path = "./saved_models/"
     tokenizer = RobertaTokenizer.from_pretrained(args.saved_model_dir)
     out = tokenizer(input_text, padding="max_length", truncation=True)
 
@@ -84,6 +86,8 @@ def predict_json():
         input_text = str(input_json["text"])
 
         args = parse_arge()
+        args.saved_model_dir = "./saved_models/"
+        args.output_path = "./saved_models/"
         tokenizer = RobertaTokenizer.from_pretrained(args.saved_model_dir)
         out = tokenizer(input_text, padding="max_length", truncation=True)
 
