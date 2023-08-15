@@ -72,7 +72,7 @@ app = flask.Flask(__name__)
 def ping():
     """Determine if the container is working and healthy. In this sample container, we declare
     it healthy if we can load the model successfully."""
-    health = ScoringService.get_model() is not None  # You can insert a health check here
+    health = ScoringService.get_model() is not None
 
     status = 200 if health else 404
     return flask.Response(response="\n", status=status, mimetype="application/json")
@@ -80,21 +80,21 @@ def ping():
 
 @app.route("/invocations", methods=["POST"])
 def transformation():
-    """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
-    it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
-    just means one prediction per line, since there's a single column.
     """
-    # get the json text input  
+    Do an inference on a single batch of data. In this sample server, we take data as json.
+    """
+    # Get the json text input  
     if flask.request.content_type == "application/json":
-        raw_data = flask.request.get_json()
-        
-        data = json.loads(raw_data)
-        if "text" not in data:
-            data = json.loads(data["body"])
+        data = flask.request.get_json()
         print(data)
-        input_text = data["text"]
+        
+        # Handle potential nested structure
+        if "text" not in data:
+            data = json.loads(data.get("body", '{}'))  # Added a default empty JSON string
+            
+        input_text = data.get("text", "")  # Safely extract the text key
     else:
-        return flask.Response(response='This predictor only supports CSV data', status=415, mimetype='text/plain')
+        return flask.Response(response='This predictor only supports json data', status=415, mimetype='text/plain')
 
     # Do the prediction
     prediction = ScoringService.predict(input_text)
@@ -103,4 +103,3 @@ def transformation():
     result_json = json.dumps(result)
 
     return flask.Response(response=result_json, status=200, mimetype="application/json")
-
