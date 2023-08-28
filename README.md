@@ -1,6 +1,8 @@
 
 # AI-Content-Detector
 
+[![GitHub Actions Demo](https://github.com/Crane-YU/AI_content_detector/actions/workflows/main.yml/badge.svg)](https://github.com/Crane-YU/AI_content_detector/actions/workflows/main.yml)
+
 This repo contains a AI Content Detector.
 
 ## Architecture
