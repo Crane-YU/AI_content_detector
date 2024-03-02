@@ -1,10 +1,10 @@
-datasets==2.14.3
+datasets
 Flask
 serverless-wsgi
 matplotlib
 scikit_learn
-torch==1.12.1
-tqdm==4.65.0
+torch
+tqdm
 sagemaker
 evaluate
 transformers[torch]
