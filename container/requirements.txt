@@ -1,13 +1,13 @@
 # required to serve the model
-Flask==2.0.3
-gevent==22.10.2
-gunicorn==20.1.0
+Flask
+gevent
+gunicorn
 
 # dependencies for the custom model
 boto3
 scikit-learn
 numpy
-torch==1.12.1
-tqdm==4.65.0
-transformers[torch]==4.31.0
+torch
+tqdm
+transformers[torch]
 datasets
